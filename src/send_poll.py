@@ -16,6 +16,8 @@ CHAT_ID = "18567459986@c.us"
 WEEKDAY_DATES = "Drop Ins(11/22)"
 WEEKEND_DATES = "Drop Ins(11/29 - 12/01)"
 
+dropin_payload = build_poll.run()
+dropin_payload.append('Nopie :)') ##maybe combine with line above
 
 
 headers = {
@@ -28,17 +30,11 @@ payload = {
   "reply_to": None,
   "poll": {
     "name": WEEKDAY_DATES,
-    "options": [
-        "Yes",
-        "No",
-        "Maybe"
-    ],
+    "options": dropin_payload,
     "multipleAnswers": False,
   },
   "session": SESSION,
 }
-
-##main loop
 
 try:
     response = requests.post(API_URL, json=payload, headers=headers)
