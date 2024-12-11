@@ -1,5 +1,5 @@
 import requests
-import build_poll
+import source.build_poll as build_poll
 
 ## TODO 
 # - handle starting whats app connection without having to manually open dashboard
