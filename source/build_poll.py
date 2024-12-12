@@ -65,7 +65,3 @@ PAYLOAD = {
 },
 "session": SESSION,
 }
-
-
-
-
