@@ -14,10 +14,9 @@ API_KEY = "Cocopebbles215!"
 SESSION = "default"  
 CHAT_ID_GC = "120363369361790746@g.us"  
 CHAT_ID = "18567459986@c.us"
-
 HEADERS = {
-    "X-Api-Key": API_KEY,
-    "Content-Type": "application/json",
+  "X-Api-Key": API_KEY,
+  "Content-Type": "application/json",
 }
 
 TODAY = date.today()
@@ -26,6 +25,7 @@ SECOND_DAY = TODAY + timedelta(2)
 THIRD_DAY = TODAY + timedelta(3)
 FOURTH_DAY = TODAY + timedelta(4)
 DATES = [FIRST_DAY, SECOND_DAY, THIRD_DAY]
+# DATES = [TODAY + timedelta(4), TODAY + timedelta(5), TODAY + timedelta(6), TODAY + timedelta(7)]
 
 def build_dynamic_dates():
     if TODAY is "Sunday": 
@@ -37,13 +37,13 @@ def build_dynamic_dates():
     return HEADER_DATES
 
 for datie in DATES:
+  #start chrome driver and parse events for specfic date
   try:
       START_URL = f"https://apps.daysmartrecreation.com/dash/x/#/online/qbksports/event-registration?date={datie}&facility_ids=1"
       driver = webdriver.Chrome()
       driver.get(START_URL)
       
-      # Wait for the page to load (adjust the wait time as needed)
-      time.sleep(5)
+      time.sleep(10)
 
       html = driver.page_source
       soup = BeautifulSoup(html, "html.parser")
@@ -53,15 +53,16 @@ for datie in DATES:
   finally:
       driver.quit()
 
+### TODO add emojis
 DROP_INS.append('Nopie :)')
 
 PAYLOAD = {
-"chatId": CHAT_ID_GC,
-"reply_to": None,
-"poll": {
-  "name": build_dynamic_dates(),
-  "options": DROP_INS,
-  "multipleAnswers": False,
-},
-"session": SESSION,
+  "chatId": CHAT_ID,
+  "reply_to": None,
+  "poll": {
+    "name": build_dynamic_dates(),
+    "options": DROP_INS,
+    "multipleAnswers": False,
+  },
+  "session": SESSION,
 }

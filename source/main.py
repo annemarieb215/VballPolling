@@ -1,6 +1,7 @@
 import requests
 from build_poll import PAYLOAD, API_URL, HEADERS
 
+#send request to WhatsApp API and post poll
 try:
     response = requests.post(API_URL, json=PAYLOAD, headers=HEADERS)
     if response.status_code == 201:

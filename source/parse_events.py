@@ -1,41 +1,44 @@
 from datetime import date
 
 DROP_INS = []
+COURTS = {"16": "1 court", "32": "2 courts", "48": "3 courts"}
+ADV_DROPIN_DAYS = ["Monday", "Wednesday", "Saturday", "Sunday"]
+INT_DROPIN_DAYS = ["Thursday", "Sunday"]
+LVL3_DAYS = ["Tuesday", "Saturday", "Sunday"]
 
-##TODO use events to refactor below for loop
-EVENTS = ["Advanced 2s Drop In", "Intermediate 2s Drop In", "Adult Level III Class", "Level IV"]
-
-##TODO add classes and maybe refactor with that add
 def parse(events, weekday):
     for event in events:
-        title = event.find("h6", class_="flex-grow-1 text-truncate mb-0 mr-2")
+        title = (event.find("h6", class_="flex-grow-1 text-truncate mb-0 mr-2")).text.strip()
+        print("TILE DIV IS -----------", title)
         time_div = event.find("div", class_="ng-tns-c8-2")
-        courts = event.find("div", class_="text-muted text-small text-right ng-tns-c8-2 ng-star-inserted")
-        if "Advanced 2s Drop In" in title.text.strip():
-            time_string = time_div.get_text(strip=True)
-            if "16" in courts.get_text(strip=True):
-                court_count = "1 court"
-            elif "32" in courts.get_text(strip=True):
-                court_count = "2 courts"
-            elif "48" in courts.get_text(strip=True):
-                court_count = "3 courts"
-            else:
-                court_count = "TBD"
-            DROP_INS.append(f"{weekday} ({time_string} ADV w/ {court_count})")
-        if "Intermediate 2s Drop In" in title.text.strip():
-            time_string = time_div.get_text(strip=True)
-            if "16" in courts.get_text(strip=True):
-                court_count = "1 court"
-            elif "32" in courts.get_text(strip=True):
-                court_count = "2 courts"
-            elif "48" in courts.get_text(strip=True):
-                court_count = "3 courts"
-            else:
-                court_count = "TBD"
+        court_div = (event.find("div", class_="text-muted text-small text-right ng-tns-c8-2 ng-star-inserted")).get_text(strip=True)
+        court = court_div.split()[0].split("/")[1] if court_div else 0
+        print("COURT DIV IS ---------", court)
+        time_string = time_div.get_text(strip=True)
+
+        #determine court count
+        if court in COURTS:
+            court_count = COURTS[court]
+        else:
+            court_count = "TBD"
+
+        ##TODO use events to refactor below for loop
+        EVENTS = { 
+            "Advanced 2s Drop In": f"{weekday} ({time_string} ADV w/ {court_count})",
+            "Intermediate 2s Drop In": f"{weekday} ({time_string} INT w/ {court_count})",
+            "Adult Level III Class": f"{weekday} ({time_string} lvl 3 class)",
+            "Level IV": f"{weekday} ({time_string} lvl 4 class)"
+        }
+        
+        
+        
+        #add event data to drop in array with styling
+        if "Advanced 2s Drop In" in title and weekday in ADV_DROPIN_DAYS:
+            if "8:00pm" not in time_string:
+                DROP_INS.append(f"{weekday} ({time_string} ADV w/ {court_count})")  
+        if "Intermediate 2s Drop In" in title and weekday in INT_DROPIN_DAYS:
             DROP_INS.append(f"{weekday} ({time_string} INT w/ {court_count})")
-        ##TODO add classes and maybe refactor with that add
-
-
-
-
-
+        if "Adult Level III Class" in title and weekday in LVL3_DAYS:
+            DROP_INS.append(f"{weekday} ({time_string} lvl 3 class)")
+        if "Level IV" in title:
+            DROP_INS.append(f"{weekday} ({time_string} lvl 4 class)")
