@@ -25,6 +25,7 @@ SECOND_DAY = TODAY + timedelta(2)
 THIRD_DAY = TODAY + timedelta(3)
 FOURTH_DAY = TODAY + timedelta(4)
 DATES = [FIRST_DAY, SECOND_DAY, THIRD_DAY]
+#For testing purposes
 # DATES = [TODAY + timedelta(4), TODAY + timedelta(5), TODAY + timedelta(6), TODAY + timedelta(7)]
 
 def build_dynamic_dates():
