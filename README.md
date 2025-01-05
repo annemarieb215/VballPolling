@@ -6,11 +6,7 @@ Automate coordination for your volleyball group by managing polls, schedules, an
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
 - [Configuration](#configuration)
-- [License](#license)
-- [Contributing](#contributing)
 
 ---
 
@@ -38,9 +34,9 @@ Automate coordination for your volleyball group by managing polls, schedules, an
 - Selenium, Beautiful Soup, and Requests installed on your local/virutal machine.
 - Google Chrome and ChromeDriver (ensure version compatibility with Selenium).
 
-### :ladder: Steps 
+### :ladder: Configuration 
 1. Clone the repository:
    ```bash
    git clone https://github.com/https://github.com/annemarieb215/VballPolling.git
    cd VballPolling
-   python3 send_poll.py
+   python3 source/main.py
