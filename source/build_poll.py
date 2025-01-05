@@ -13,7 +13,8 @@ from parse_events import DROP_INS, parse
 API_URL = "http://localhost:3000/api/sendPoll"
 API_KEY = "Cocopebbles215!"
 SESSION = "default"  
-CHAT_ID_GC = "120363369361790746@g.us"  
+TEST_CHAT_ID_GC = "120363369361790746@g.us" 
+CHAT_ID_GC = "120363305034812145@g.us" #ONLY USE IN PRODUCTION
 CHAT_ID = "18567459986@c.us"
 HEADERS = {
   "X-Api-Key": API_KEY,
@@ -21,23 +22,15 @@ HEADERS = {
 }
 
 TODAY = date.today()
-FIRST_DAY = TODAY + timedelta(1)
-SECOND_DAY = TODAY + timedelta(2)
-THIRD_DAY = TODAY + timedelta(3)
-FOURTH_DAY = TODAY + timedelta(4)
-# DATES = [FIRST_DAY, SECOND_DAY, THIRD_DAY]
+DAY = str(TODAY.strftime("%A"))
+DAYS = [TODAY + timedelta(days=i) for i in range(5)]
+FIRST_DAY, SECOND_DAY, THIRD_DAY, FOURTH_DAY = DAYS[1], DAYS[2], DAYS[3], DAYS[4]
+DATES = [FIRST_DAY, SECOND_DAY, THIRD_DAY, FOURTH_DAY] if DAY == "Sunday" else [FIRST_DAY, SECOND_DAY, THIRD_DAY]
+WEEKDAY_TITLE = f"Drop Ins({FIRST_DAY.month}/{FIRST_DAY.day} - {FOURTH_DAY.month}/{FOURTH_DAY.day})"
+WEEKEND_TITLE = f"Drop Ins({FIRST_DAY.month}/{FIRST_DAY.day} - {THIRD_DAY.month}/{THIRD_DAY.day})" 
+HEADER_DATES = WEEKDAY_TITLE if DAY == "Sunday" else WEEKEND_TITLE
 #For testing purposes
-DATES = [TODAY + timedelta(6), TODAY + timedelta(7), TODAY + timedelta(8)] #, TODAY + timedelta(5)
-
-def build_dynamic_dates():
-    #TODO: build out so this can run automatically on Sunday and Thursday
-    if TODAY is "Sunday": 
-        HEADER_DATES = f"Drop Ins({FIRST_DAY.month}/{FIRST_DAY.day} - {FOURTH_DAY.month}/{FOURTH_DAY.day})"
-        DATES.append(FOURTH_DAY)
-    else:
-        HEADER_DATES = f"Drop Ins({FIRST_DAY.month}/{FIRST_DAY.day} - {THIRD_DAY.month}/{THIRD_DAY.day})"  
-    
-    return HEADER_DATES
+# DATES = [TODAY + timedelta(6), TODAY + timedelta(7), TODAY + timedelta(8)] #, TODAY + timedelta(5)
 
 for datie in DATES:
   #start chrome driver and parse events for specfic date
@@ -61,12 +54,12 @@ DROP_INS.append('Nopie :)')
 
 #set up payload to be sent in main.py
 PAYLOAD = {
-  "chatId": CHAT_ID,
+  "chatId": CHAT_ID_GC,
   "reply_to": None,
   "poll": {
-    "name": build_dynamic_dates(),
+    "name": HEADER_DATES,
     "options": DROP_INS,
-    "multipleAnswers": False,
+    "multipleAnswers": True,
   },
   "session": SESSION,
 }
