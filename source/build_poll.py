@@ -6,7 +6,6 @@ from parse_events import DROP_INS, parse
 
 ## TODO 
 # - handle starting whats app connection without having to manually open dashboard
-# - figure out why when opening docker waha image runs automaticaly
 # - handle running this file 
 # - handle running this file only on Sundays and Thursdays at 10am
 
