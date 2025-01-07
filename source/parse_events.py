@@ -1,7 +1,7 @@
 from datetime import date
 
 DROP_INS = []
-COURTS = {"16": "1 court", "32": "2 courts", "48": "3 courts"}
+COURTS = {"16": "1 court", "32": "2 courts", "48": "3 courts👀"}
 ADV_DROPIN_DAYS = {"Saturday", "Sunday"}
 INT_DROPIN_DAYS = {"Wednesday"}
 LVL3_DAYS = {"Monday", "Wednesday","Saturday"}
@@ -20,7 +20,6 @@ def parse(events, weekday):
         time_string = time_div.get_text(strip=True)
 
         #determine court count
-        #TODO: may need revisiting with new scheduling
         if court in COURTS:
             court_count = COURTS[court]
         else:
@@ -34,8 +33,8 @@ def parse(events, weekday):
             "Adult Level II/III Class": f"{weekday} ({time_string} lvl 2/3 class)",
             "Adult Level III Class": f"{weekday} ({time_string} lvl 3 class)",
             "Adult Level IV Class": f"{weekday} ({time_string} lvl 4 class)",
-            "Adult Women's Level III Class": f"{weekday} ({time_string} Women's class)",
-            "Sunday Skills": f"{weekday} ({time_string} Sunday Skills)"
+            "Adult Women's Level III Class": f"{weekday} ({time_string} Women's class🌺)",
+            "Sunday Skills": f"{weekday} ({time_string} Sunday Skills💪)"
         }
 
         if title in EVENTS and weekday in (INT_DROPIN_DAYS | ADV_DROPIN_DAYS | LVL3_DAYS | LVL4_DAYS | LVL2_3_DAYS | WOMENS_DAYS | SUNDAY_SKILLS):
@@ -43,7 +42,7 @@ def parse(events, weekday):
                 continue
             elif weekday == "Friday" and "8:00pm" in time_string:
                 continue
-            elif weekday == "Sunday" and ("1:00pm" in time_string or "3:00pm" in time_string):
+            elif weekday == "Sunday" and "1:00pm" in time_string:
                 continue
             else:
                 DROP_INS.append(EVENTS[title])

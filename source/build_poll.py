@@ -13,9 +13,9 @@ from parse_events import DROP_INS, parse
 API_URL = "http://localhost:3000/api/sendPoll"
 API_KEY = "Cocopebbles215!"
 SESSION = "default"  
-TEST_CHAT_ID_GC = "120363369361790746@g.us" 
+TEST_CHAT_ID_GC = "120363369361790746@g.us" #TESTING FOR GC
 CHAT_ID_GC = "120363305034812145@g.us" #ONLY USE IN PRODUCTION
-CHAT_ID = "18567459986@c.us"
+CHAT_ID = "18567459986@c.us" #TESTING FOR MYSELF
 HEADERS = {
   "X-Api-Key": API_KEY,
   "Content-Type": "application/json",
@@ -30,7 +30,7 @@ WEEKDAY_TITLE = f"Drop Ins({FIRST_DAY.month}/{FIRST_DAY.day} - {FOURTH_DAY.month
 WEEKEND_TITLE = f"Drop Ins({FIRST_DAY.month}/{FIRST_DAY.day} - {THIRD_DAY.month}/{THIRD_DAY.day})" 
 HEADER_DATES = WEEKDAY_TITLE if DAY == "Sunday" else WEEKEND_TITLE
 #For testing purposes
-# DATES = [TODAY + timedelta(6), TODAY + timedelta(7), TODAY + timedelta(8)] #, TODAY + timedelta(5)
+# DATES = [TODAY + timedelta(5), TODAY + timedelta(6), TODAY + timedelta(7)]
 
 for datie in DATES:
   #start chrome driver and parse events for specfic date
@@ -50,11 +50,11 @@ for datie in DATES:
       driver.quit()
 
 ### TODO add emojis
-DROP_INS.append('Nopie :)')
+DROP_INS.append("Nopie👻")
 
 #set up payload to be sent in main.py
 PAYLOAD = {
-  "chatId": CHAT_ID_GC,
+  "chatId": CHAT_ID,
   "reply_to": None,
   "poll": {
     "name": HEADER_DATES,
